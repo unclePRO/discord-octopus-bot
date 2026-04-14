@@ -239,6 +239,7 @@ module.exports = {
 
                             ///////////////////// 2048 (ffa)
                             case '2048':
+                                // MAKE THIS AGAIN ITS BROKEN
                                 const play2048 = new ButtonBuilder()
                                     .setCustomId("play2048")
                                     .setLabel("Play")
@@ -259,7 +260,32 @@ module.exports = {
 
                             ///////////////////// rock paper scissors
                             case 'rockpaperscissor':
+                                //make num of players even
+                                if (!((numberOfPlayers % 2 === 0) && (numberOfPlayers === 1))) {
+                                    let [newArray, killedMem] = client.killRandom(players);
+                                    players = newArray;
 
+                                    await roundMsg.reply(`${killedMem} was killed :skull:.`);
+                                    await client.delay(5000);
+                                    //5 second delay here
+                                }
+                                const rps_groups = client.groupTwo(players);
+
+                                const playRPS = new ButtonBuilder()
+                                    .setCustomId("playrps")
+                                    .setLabel("Play")
+                                    .setStyle(ButtonStyle.Primary);
+                                
+                                const rowRPS = new ActionRowBuilder()
+                                    .addComponents(playRPS);
+
+                                await interaction.deferReply();
+                                const MsgRPS = await interaction.followUp({
+                                    content: `Round ${roundNo}. Game: Rock Paper Scissors\nClick the button to start the game of RPS!`,
+                                    components: [rowRPS],
+                                });
+
+                                
                                 break;
 
                         

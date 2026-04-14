@@ -238,7 +238,53 @@ class Octo extends Client {
             console.error("Error starting Hangman games:", error);
         }
     };
+
+    // ROCK PAPER SCISSORS
+    async initializeRockPaperScissors(user) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+            const gameData = {
+                user,
+                enemy,
+                turn: 0, // 1 = rock, 2 = paper, 3 = scissor
+                died: false,
+            };   
+
+            console.log(`RPScissor Game initialized for user ${user.globalName}`);
+            resolve(gameData);
+            }, 2000); // Simulate database/cache operation
+        });
+    };
+
+    async startRockPaperScissors(users, RRMessageID, client) {
+        try {
+            const gameInitializationPromises = users.map(async user => {
+                return client.initializeRussianRoulette(user); // Initialize game
+            });
+
+            // Wait for all game initializations to complete concurrently
+            const allGameData = await Promise.all(gameInitializationPromises);
+
+            await client.cache.set( // to access it in modal folder fr
+                RRMessageID,
+                allGameData
+            )
+
+            console.log("All Hangman games started");
+            return allGameData;
+        } catch (error) {
+            console.error("Error starting Hangman games:", error);
+        }
+    };
+
+
+
+
+
+
     
 }
+
+
 
 module.exports = { Octo };
