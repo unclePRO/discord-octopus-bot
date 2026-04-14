@@ -24,7 +24,8 @@ module.exports = {
                     players.push(playerData.user);
                 }
             }
-
+            
+            console.log(playersData);
             let playerData = playersData?.find(user => user.user === interaction.member.user);
 
             /**
@@ -49,6 +50,7 @@ module.exports = {
                 let ended2048 = playerData?.ended;
                 let turns2048 = playerData?.turns;
                 let next2048 = playerData?.next;
+                console.log(playerData);
 
                 const up2048 = new ButtonBuilder()
                     .setCustomId("up2048")

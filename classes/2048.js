@@ -8,9 +8,8 @@ function getRandomArrayValue(arr) {
   return arr[randomIndex];
 }
 
-class Two048 extends Client {
-    
-    cache = new Map();
+class Two048 {
+
 
     async init2048(user) {
         let matrix = [
@@ -43,7 +42,7 @@ class Two048 extends Client {
     async start2048(users, Msg2048, client) {
         try {
             const gameInitializationPromises = users.map(async user => {
-                return client.init2048(user);
+                return this.init2048(user);
             });
             const allGameData = await Promise.all(gameInitializationPromises);
 
@@ -74,7 +73,7 @@ class Two048 extends Client {
 
     randomTwo(matrix) {
         let newMatrix = matrix;
-        let zeroArray = client?.locateZero(matrix);
+        let zeroArray = this?.locateZero(matrix);
         let randomIndex = getRandomArrayValue(zeroArray); //ex: [1, 2]
         let i = randomIndex[0];
         let j = randomIndex[1];
@@ -116,32 +115,32 @@ class Two048 extends Client {
 
     mergeDown(matrix) {
         let newMatrix = matrix;
-        client.rotateMatrixCW(newMatrix);
-        client.rotateMatrixCW(newMatrix);
-        client.mergeUp(newMatrix);
-        client.rotateMatrixACW(newMatrix);
-        client.rotateMatrixACW(newMatrix);
+        this.rotateMatrixCW(newMatrix);
+        this.rotateMatrixCW(newMatrix);
+        this.mergeUp(newMatrix);
+        this.rotateMatrixACW(newMatrix);
+        this.rotateMatrixACW(newMatrix);
         
         return newMatrix;
     }
 
     mergeLeft(matrix) {
         let newMatrix = matrix;
-        client.rotateMatrixCW(newMatrix);
-        client.mergeUp(newMatrix);
-        client.rotateMatrixACW(newMatrix);
+        this.rotateMatrixCW(newMatrix);
+        this.mergeUp(newMatrix);
+        this.rotateMatrixACW(newMatrix);
     }
 
     mergeRight(matrix) {
         let newMatrix = matrix;
-        client.rotateMatrixACW(newMatrix);
-        client.mergeUp(newMatrix);
-        client.rotateMatrixCW(newMatrix);
+        this.rotateMatrixACW(newMatrix);
+        this.mergeUp(newMatrix);
+        this.rotateMatrixCW(newMatrix);
     }
 
     moveUp(matrix) {
         let newMatrix = matrix;
-        client.mergeUp(newMatrix);
+        this.mergeUp(newMatrix);
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
                 if (newMatrix[i][j] == 0) {
@@ -154,28 +153,28 @@ class Two048 extends Client {
 
     moveDown(matrix) {
         let newMatrix = matrix;
-        client.rotateMatrixCW(newMatrix);
-        client.rotateMatrixCW(newMatrix);
-        client.mergeUp(newMatrix);
-        client.moveUp(newMatrix);
-        client.rotateMatrixACW(newMatrix);
-        client.rotateMatrixACW(newMatrix);
+        this.rotateMatrixCW(newMatrix);
+        this.rotateMatrixCW(newMatrix);
+        this.mergeUp(newMatrix);
+        this.moveUp(newMatrix);
+        this.rotateMatrixACW(newMatrix);
+        this.rotateMatrixACW(newMatrix);
     }
 
     moveLeft(matrix) {
         let newMatrix = matrix;
-        client.rotateMatrixCW(newMatrix);
-        client.mergeUp(newMatrix);
-        client.moveUp(newMatrix);
-        client.rotateMatrixACW(newMatrix);
+        this.rotateMatrixCW(newMatrix);
+        this.mergeUp(newMatrix);
+        this.moveUp(newMatrix);
+        this.rotateMatrixACW(newMatrix);
     }
 
     moveRight(matrix) {
         let newMatrix = matrix;
-        client.rotateMatrixACW(newMatrix);
-        client.mergeUp(newMatrix);
-        client.moveUp(newMatrix);
-        client.rotateMatrixCW(newMatrix);
+        this.rotateMatrixACW(newMatrix);
+        this.mergeUp(newMatrix);
+        this.moveUp(newMatrix);
+        this.rotateMatrixCW(newMatrix);
     }
     
 }

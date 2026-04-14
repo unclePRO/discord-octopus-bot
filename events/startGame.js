@@ -1,6 +1,7 @@
 const {Events, Collection, Client, Interaction, MessageFlags, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, PermissionsBitField, ModalBuilder, TextInputBuilder, TextInputStyle} = require('discord.js');
 const { devs, testServer} = require('../config.json');
-
+const { Two048 } = require('../classes/2048');
+const t048 = new Two048();
 /**
  * 
  * @param {Client} client 
@@ -252,7 +253,7 @@ module.exports = {
                                     components: [row2048],
                                 });
 
-                                await client.start2048(players, Msg2048, client);
+                                await t048.start2048(players, Msg2048, client);
                                 client.delay(100000);
                                 break;
 
